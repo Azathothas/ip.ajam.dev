@@ -24,10 +24,11 @@ jobs:
           path: main
           filter: "blob:none" #https://github.blog/2020-12-21-get-up-to-speed-with-partial-clone-and-shallow-clone/
 
-      - name: Setup Env
+      - name: Setup ENV
         run: |
           #presets
           set +x ; set +e
+          #-------------#
           #tmp
           SYSTMP="$(dirname $(mktemp -u))" && export SYSTMP="$SYSTMP"
           echo "SYSTMP=$SYSTMP" >> "$GITHUB_ENV"
@@ -40,7 +41,7 @@ jobs:
           echo "USER_AGENT=$USER_AGENT" >> "$GITHUB_ENV"
         continue-on-error: true
 
-       - name: Install Addons
+      - name: Install Addons
         run: |
           #presets
           set +x ; set +e
