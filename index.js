@@ -26,6 +26,63 @@ function jsonToCsv(json) {
     return csv;
 }
 
+// Function to convert filteredJson to HTML
+function jsonToHtml(json) {
+  let html = '<!DOCTYPE html>\n<html>\n<head>\n<title>IP Details</title>\n<style>';
+  // Dark mode styles with increased contrast
+  html += `
+    body {
+      background-color: #0d0e0e;
+      color: #f2f0ec;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      margin-top: 20px;
+    }
+    th, td {
+      border: 1px solid #3b4043;
+      padding: 8px;
+      text-align: left;
+      background-color: #1b1d1e; /* Same color for all table entries */
+    }
+    td {
+      font-weight: bold; /* Bolder entries */
+      color: #c4c1ba; /* Slightly darker shade for values */
+    }
+    th {
+      background-color: #1b1d1e;
+      color: #f2f0ec;
+      font-weight: bold;
+    }
+    tr:nth-child(even) {
+      background-color: #0d0e0e;
+    }
+    a {
+      color: #4ca5ff; /* Blue for links */
+    }
+  `;
+  html += '</style>\n</head>\n<body>\n<table>\n';
+  for (const [key, value] of Object.entries(json)) {
+    html += `<tr><td>${key}</td><td>${isURL(value) ? `<a href="${value}">${value}</a>` : value}</td></tr>\n`;
+  }
+  html += '</table>\n</body>\n</html>';
+  return html;
+}
+// Function to check if a string is a URL or IPv6 address
+function isURL(str) {
+  const urlPattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+    '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ // domain name
+    '((\\d{1,3}\\.){3}\\d{1,3})|'+ // OR ipv4 address
+    '([0-9a-fA-F]{1,4}:){1,7}:?([0-9a-fA-F]{1,4})?)'+ // OR ipv6 address
+    '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+    '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+    '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+  return urlPattern.test(str);
+}
+
 // Function to convert filteredJson to XML
 function jsonToXml(json) {
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<data>\n';
@@ -107,6 +164,17 @@ var src_default = {
                 "Content-Type": "text/csv",
         }
     });
+
+   //Print HTML if request is to ip.ajam.dev/html  
+  } else if (pathname === "/html") {
+        const htmlStr = jsonToHtml(filteredJson);
+        console.log(htmlStr);
+        return new Response(htmlStr, {
+          headers: {
+            ...CORS_HEADERS,
+            "Content-Type": "text/html;charset=utf-8",
+          }
+        });
 
    //Print json if request is to ip.ajam.dev/json
     } else if (pathname === "/json") {
