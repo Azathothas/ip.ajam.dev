@@ -165,15 +165,17 @@ var src_default = {
         }
     });
 
-   //Print HTML if request is to ip.ajam.dev/html  
-  } else if (pathname === "/html") {
-        const htmlStr = jsonToHtml(filteredJson);
+   //Print html if request is to ip.ajam.dev/html
+    } else if (pathname === "/html") {
+        let htmlStr = jsonToHtml(filteredJson);
         console.log(htmlStr);
+        const endpointsRow = `<tr><td>endpoints</td><td><a href="https://ip.ajam.dev/csv">/csv</a> <a href="https://ip.ajam.dev/ip">/ip</a> <a href="https://ip.ajam.dev/json">/json</a> <a href="https://ip.ajam.dev/text">/text</a> <a href="https://ip.ajam.dev/xml">/xml</a> <a href="https://ip.ajam.dev/yaml">/yaml</a></td></tr>`;
+        htmlStr = htmlStr.replace('</table>\n</body>\n</html>', `${endpointsRow}</table>\n</body>\n</html>`);
         return new Response(htmlStr, {
-          headers: {
-            ...CORS_HEADERS,
-            "Content-Type": "text/html;charset=utf-8",
-          }
+            headers: {
+                ...CORS_HEADERS,
+                "Content-Type": "text/html;charset=utf-8",
+            }
         });
 
    //Print json if request is to ip.ajam.dev/json
