@@ -1,4 +1,5 @@
 > Note: You will need [modern fonts](https://github.com/ryanoasis/nerd-fonts) to be able to view `Flags`
+> - Specify `--ipv4 | --ipv6` or similar for `ipv4|ipv6` only data
 ---
 - #### Simple (`text`) : [/](https://ip.ajam.dev/) `-->` [https://ip.ajam.dev/](https://ip.ajam.dev/)
 > Returns plain `IPv4 | IPv6`
