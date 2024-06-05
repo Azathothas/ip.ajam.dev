@@ -21,6 +21,14 @@ curl -qfsSL "https://ip.ajam.dev/csv" | column -ts ','
 >```
 > </details>
 ---
+- #### Detailed (`html`) : [/html](https://ip.ajam.dev/html) `-->` [https://ip.ajam.dev/html](https://ip.ajam.dev/html)
+> Returns HTML `IPv4 | IPv6`, `GeoInfo` & `User-Agent`
+> <details><summary><code>Example Response</code></summary>
+>
+> ![image](https://github.com/Azathothas/ip.ajam.dev/assets/58171889/39b9dd85-a2f0-4eb1-90c7-961ba6bc98f2)
+> 
+> </details>
+---
 - #### Detailed (`json`) : [/json](https://ip.ajam.dev/json) `-->` [https://ip.ajam.dev/json](https://ip.ajam.dev/json)
 > Returns json `IPv4 | IPv6`, `GeoInfo` & `User-Agent`
 ```bash
